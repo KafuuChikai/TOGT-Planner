@@ -4,6 +4,7 @@
 
 # Build directory
 build/*
+resources/*
 
 # LLVM and Clang
 **/.cache

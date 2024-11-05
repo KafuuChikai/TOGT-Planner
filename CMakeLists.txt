@@ -8,6 +8,7 @@ message(STATUS "==================   TOGT Planner   ===================")
 ################################################################################
 
 option(BUILD_TESTS "Building the tests" ON)
+option(BUILD_PLANS "Building the planners" ON)
 option(ENABLE_FAST "Build with optimizations for speed" ON)
 option(UNSAFE_MATH "Build with -funsafe-math-optimizations: high impact on speed, but lowers floating point precision." ON)
 option(ENABLE_PROFILING "Build for profiling" OFF)
@@ -157,6 +158,10 @@ file(GLOB_RECURSE TEST_SOURCES
         tests/test_togt.cpp
         )
 
+file(GLOB_RECURSE PLAN_SOURCES
+        traj_planner/traj_planner_togt.cpp
+        )
+
 ################################################################################
 # Optional Catkin Build
 ################################################################################
@@ -179,6 +184,7 @@ endif ()
 
 message(STATUS "SOURCES is " ${SOURCES})
 message(STATUS "TEST_SOURCES is " ${TEST_SOURCES})
+message(STATUS "PLAN_SOURCES is " ${PLAN_SOURCES})
 
 if (NOT SOURCES)
     set(LIBRARY_NAME)
@@ -246,6 +252,33 @@ if (BUILD_TESTS)
             $<$<AND:$<CXX_COMPILER_ID:GNU>,$<VERSION_LESS:$<CXX_COMPILER_VERSION>,9.0>>:stdc++fs>
             )
     add_test(tests tests)
+endif ()
+
+# Build planners
+if (BUILD_PLANS)
+    add_executable(planners ${PLAN_SOURCES})
+    target_compile_options(planners PRIVATE
+      -fno-finite-math-only
+      -Wall                   # Show all warnings
+      -Wextra                 # Show extra error information
+      -Wpedantic              # Issue all the warnings demanded by strict ISO C and ISO C++
+      -Werror                 # Raise all warnings to errors
+      -Wunused                # Warn whatever is assigned to, but unused
+      -Wno-unused-parameter
+      -Wundef                 # Warn if an undefined identifier is evaluated in an #if directive. 
+      -Wcast-align            # Warn whenever a pointer is cast such that the required alignment of the target is increased
+      -Wmissing-declarations  # Warn if a global function is defined without a previous declaration
+      -Wmissing-include-dirs  # Warn if a user-supplied include directory does not exist.
+      -Wnon-virtual-dtor      
+      -Wredundant-decls       # Warn if anything is declared more than once in the same scope
+      -Wodr
+      -Wunreachable-code
+      -Wno-unknown-pragmas
+    )
+    target_link_libraries(planners
+            ${LIBRARY_NAME}
+            $<$<AND:$<CXX_COMPILER_ID:GNU>,$<VERSION_LESS:$<CXX_COMPILER_VERSION>,9.0>>:stdc++fs>
+            )
 endif ()
 
 message(STATUS "===========   The TOGT Planner has been built successfully!   ==============")
