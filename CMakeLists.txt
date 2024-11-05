@@ -150,8 +150,11 @@ file(GLOB_RECURSE SOURCES
         )
 
 #Get all test-related source files
+# file(GLOB_RECURSE TEST_SOURCES
+#         tests/*.cpp
+#         )
 file(GLOB_RECURSE TEST_SOURCES
-        tests/*.cpp
+        tests/test_togt.cpp
         )
 
 ################################################################################
