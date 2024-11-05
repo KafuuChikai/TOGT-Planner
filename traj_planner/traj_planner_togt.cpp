@@ -8,7 +8,6 @@ using namespace drolib;
 
 int main(int argc, char** argv) {
   if (argc != 5) {
-    std::cout << argv << std::endl;
     std::cerr << "Usage: " << argv[0] << " <quad_name> <track_name> <traj_name> <wpt_name>" << std::endl;
     return 1;
   }
@@ -22,8 +21,8 @@ int main(int argc, char** argv) {
   fs::path cwd = std::filesystem::current_path();
   fs::path config_path = cwd / ".." / "parameters" / quad_name;
   fs::path track_path = cwd / ".." / "resources/racetrack" / track_name;
-  fs::path traj_path = cwd / ".." / "resources/trajectory" / traj_name;
-  fs::path wpt_path = cwd / ".." / "resources/trajectory" / wpt_name;
+  fs::path traj_path = cwd / ".." / "resources/planner/traj" / traj_name;
+  fs::path wpt_path = cwd / ".." / "resources/planner/wpt" / wpt_name;
 
   auto raceparams = std::make_shared<RaceParams>(config_path, config_name);
   auto raceplanner = std::make_shared<RacePlanner>(*raceparams);
