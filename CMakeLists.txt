@@ -159,7 +159,7 @@ file(GLOB_RECURSE TEST_SOURCES
         )
 
 file(GLOB_RECURSE PLAN_SOURCES
-        traj_planner/traj_planner_togt.cpp
+        Run-TOGT-Planner/traj_planner/traj_planner_togt.cpp
         )
 
 ################################################################################
