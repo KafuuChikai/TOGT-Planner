@@ -279,15 +279,15 @@ bool MincoSnapTrajectory::save(const std::string &filename) {
     const Eigen::Vector4d &quat = setpoint.state.qx;
     const Eigen::Vector3d &omg = setpoint.input.omega;
     const Eigen::Vector4d &thrusts = setpoint.input.thrusts;
-    file << std::setprecision(5) << t << "," << std::setprecision(5) << pos(0)
-         << "," << pos(1) << "," << pos(2) << "," << quat(0) << "," << quat(1)
-         << "," << quat(2) << "," << quat(3) << "," << vel(0) << "," << vel(1)
-         << "," << vel(2) << "," << omg(0) << "," << omg(1) << "," << omg(2)
-         << "," << acc(0) << "," << acc(1) << "," << acc(2) << "," << accRot(0)
-         << "," << accRot(1) << "," << accRot(2) << "," << thrusts(0) << ","
-         << thrusts(1) << "," << thrusts(2) << "," << thrusts(3) << ","
-         << jer(0) << "," << jer(1) << "," << jer(2) << "," << sna(0) << ","
-         << sna(1) << "," << sna(2) << "\n";
+    file << std::setprecision(10) << t << "," << pos(0) << "," << pos(1) << "," << pos(2) << ","
+         << quat(0) << "," << quat(1) << "," << quat(2) << "," << quat(3) << ","
+         << vel(0) << "," << vel(1) << "," << vel(2) << ","
+         << omg(0) << "," << omg(1) << "," << omg(2) << ","
+         << acc(0) << "," << acc(1) << "," << acc(2) << ","
+         << accRot(0) << "," << accRot(1) << "," << accRot(2) << ","
+         << thrusts(0) << "," << thrusts(1) << "," << thrusts(2) << "," << thrusts(3) << ","
+         << jer(0) << "," << jer(1) << "," << jer(2) << ","
+         << sna(0) << "," << sna(1) << "," << sna(2) << "\n";
   }
 
   file.close();
